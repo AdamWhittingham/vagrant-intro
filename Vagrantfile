@@ -11,4 +11,12 @@ Vagrant::configure("2") do |config|
 
   host_data_dir = File.join(File.dirname(__FILE__), 'data')
   config.vm.synced_folder host_data_dir, "/var/host", create: true
+
+  config.vm.provider :virtualbox do |vb|
+    vb.name = 'Vagrant Demo'
+    vb.cpus = 2
+    vb.memory = 512
+    vb.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+    vb.customize ["modifyvm", :id, "--ostype",              "Ubuntu_64"]
+  end
 end
